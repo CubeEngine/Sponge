@@ -44,12 +44,11 @@ public final class Installer {
     private final ConfigurationLoader<CommentedConfigurationNode> loader;
     private final LauncherConfig config;
 
-    public Installer(final Logger logger, final Path directory) throws ConfigurateException {
+    public Installer(final Logger logger, final Path directory, Path launcherConfPath) throws ConfigurateException {
         this.logger = logger;
         this.directory = directory;
-        final Path launcherConfigFile = this.directory.resolve("launcher.conf");
         this.loader = HoconConfigurationLoader.builder()
-                .path(launcherConfigFile)
+                .path(launcherConfPath)
                 .defaultOptions(options ->
                     options.shouldCopyDefaults(true)
                             .implicitInitialization(true)

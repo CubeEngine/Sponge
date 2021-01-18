@@ -60,7 +60,7 @@ public final class InstallerMain {
 
     public InstallerMain(final String[] args) throws Exception {
         LauncherCommandLine.configure(args);
-        this.installer = new Installer(LogManager.getLogger("Installer"), LauncherCommandLine.installerDirectory);
+        this.installer = new Installer(LogManager.getLogger("Installer"), LauncherCommandLine.installerDirectory, LauncherCommandLine.launcherConfPath);
     }
 
     public static void main(final String[] args) throws Exception {

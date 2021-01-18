@@ -36,6 +36,9 @@ import java.nio.file.Paths;
 public final class LauncherCommandLine {
 
     private static final OptionParser PARSER = new OptionParser();
+    private static final ArgumentAcceptingOptionSpec<Path> LAUNCHER_CONF_ARG = LauncherCommandLine.PARSER.accepts("launcherConf",
+        "Explicit path to launcher config").withRequiredArg().withValuesConvertedBy(new PathConverter(PathProperties.FILE_EXISTING))
+        .defaultsTo(Paths.get("launcher.conf"));
     private static final ArgumentAcceptingOptionSpec<Path> INSTALLER_DIRECTORY_ARG = LauncherCommandLine.PARSER.accepts("installerDir",
         "Alternative installer directory").withRequiredArg().withValuesConvertedBy(new PathConverter(PathProperties.DIRECTORY_EXISTING))
         .defaultsTo(Paths.get("."));
@@ -43,7 +46,7 @@ public final class LauncherCommandLine {
         "Alternative libraries directory").withRequiredArg().withValuesConvertedBy(new PathConverter(PathProperties.DIRECTORY_EXISTING))
         .defaultsTo(Paths.get("libraries"));
 
-    public static Path installerDirectory, librariesDirectory;
+    public static Path installerDirectory, librariesDirectory, launcherConfPath;
 
     private LauncherCommandLine() {
     }
@@ -52,5 +55,6 @@ public final class LauncherCommandLine {
         final OptionSet options = LauncherCommandLine.PARSER.parse(args);
         LauncherCommandLine.installerDirectory = options.valueOf(LauncherCommandLine.INSTALLER_DIRECTORY_ARG);
         LauncherCommandLine.librariesDirectory = options.valueOf(LauncherCommandLine.LIBRARIES_DIRECTORY_ARG);
+        LauncherCommandLine.launcherConfPath = options.valueOf(LauncherCommandLine.LAUNCHER_CONF_ARG);
     }
 }
